@@ -39,16 +39,19 @@ def set_bg_image(image_url):
 set_bg_image("https://rikkeisoft.com/wp-content/uploads/2022/12/Cost-of-Healthcare-App-Development-1536x865.png")
 
 # ✅ Load Models
-models_dir = os.path.join(os.path.dirname(__file__), "saved_models")
+
+
 try:
-    liver_model = pickle.load(open(os.path.join(models_dir, "Liver_disease_model.pkl"), "rb"))
-    kidney_model = pickle.load(open(os.path.join(models_dir, "kidney_disease_model.pkl"), "rb"))
-    parkinsons_rf_model = pickle.load(open(os.path.join(models_dir, "parkinsons_rf_model.pkl"), "rb"))
-    parkinsons_xgb_model = pickle.load(open(os.path.join(models_dir, "parkinsons_xgb_model.pkl"), "rb"))
+    # ✅ Load models directly from the main directory
+    liver_model = pickle.load(open("Liver_disease_model.pkl", "rb"))
+    kidney_model = pickle.load(open("kidney_disease_model.pkl", "rb"))
+    parkinsons_rf_model = pickle.load(open("parkinsons_rf_model.pkl", "rb"))
+    parkinsons_xgb_model = pickle.load(open("parkinsons_xgb_model.pkl", "rb"))
     models_loaded = True
-except FileNotFoundError:
-    st.error("Error loading models. Please check file paths and models.")
+except FileNotFoundError as e:
+    st.error(f"❌ Model file missing: {e}")
     models_loaded = False
+
 
 # ✅ Define Normal Ranges for Each Disease
 normal_ranges = {
